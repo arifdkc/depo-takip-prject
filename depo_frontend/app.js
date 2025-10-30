@@ -14,11 +14,27 @@ async function urunleriGetir() {
                         <td>${urun.urunAdi}</td>
                         <td>${urun.miktar}</td>
                         <td>${urun.birim}</td>
+                       <td><button class="sil-butonu" data-id="${urun.id}">Sil</button></td>
                      </tr>`;
         urunListesiBody.innerHTML += row;
     });
 }
-
+async function urunSil(id) {
+    await fetch(`${apiUrl}/${id}`, {
+        method: 'DELETE'
+    });
+    urunleriGetir(); // Tabloyu yenile
+}urunListesiBody.addEventListener('click', (e) => {
+    // Tıklanan elementin bir "sil-butonu" olup olmadığını kontrol et
+    if (e.target.classList.contains('sil-butonu')) {
+        // Emin misiniz diye sor (isteğe bağlı ama önerilir)
+        const onay = confirm('Bu ürünü silmek istediğinize emin misiniz?');
+        if (onay) {
+            const id = e.target.dataset.id; // Butonun 'data-id' etiketinden ID'yi al
+            urunSil(id); // Silme fonksiyonunu çağır
+        }
+    }
+});
 // Yeni siparişi (yeni ürünü) alıp mutfağa gönderen fonksiyon
 ekleFormu.addEventListener('submit', async (e) => {
     e.preventDefault(); // Sayfanın yenilenmesini engelle

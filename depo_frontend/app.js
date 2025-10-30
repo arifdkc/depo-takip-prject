@@ -18,7 +18,88 @@ async function urunleriGetir() {
                      </tr>`;
         urunListesiBody.innerHTML += row;
     });
+}// app.js
+
+// --- EN BAŞA YENİ DEĞİŞKENLER EKLEYİN ---
+const duzenleModal = document.getElementById('duzenle-modal');
+const duzenleFormu = document.getElementById('duzenle-formu');
+const kapatButonu = document.querySelector('.close-button');
+
+// --- 'urunleriGetir' FONKSİYONUNU GÜNCELLEYİN ---
+async function urunleriGetir() {
+    const response = await fetch(apiUrl);
+    window.urunler = await response.json(); // Ürünleri globalde saklayalım
+    urunListesiBody.innerHTML = '';
+
+    urunler.forEach(urun => {
+        const row = `<tr>
+                        <td>${urun.urunAdi}</td>
+                        <td>${urun.miktar}</td>
+                        <td>${urun.birim}</td>
+                        <td>
+                            <button class="duzenle-butonu" data-id="${urun.id}">Düzenle</button>
+                            <button class="sil-butonu" data-id="${urun.id}">Sil</button>
+                        </td>
+                     </tr>`;
+        urunListesiBody.innerHTML += row;
+    });
 }
+
+// --- YENİ FONKSİYONLAR VE EVENT LISTENER'LAR EKLEYİN ---
+
+// Modal kapatma işlemleri
+kapatButonu.onclick = () => { duzenleModal.style.display = "none"; }
+window.onclick = (event) => {
+    if (event.target == duzenleModal) {
+        duzenleModal.style.display = "none";
+    }
+}
+
+// Tıklama olaylarını yöneten ana listener'ı güncelleyin
+urunListesiBody.addEventListener('click', (e) => {
+    if (e.target.classList.contains('sil-butonu')) {
+        // ... (silme kodunuz burada - değişiklik yok)
+    }
+
+    if (e.target.classList.contains('duzenle-butonu')) {
+        const id = e.target.dataset.id;
+        // Globalde sakladığımız ürün listesinden ilgili ürünü bul
+        const urun = window.urunler.find(u => u.id == id);
+        if (urun) {
+            // Formu bulduğumuz ürünün bilgileriyle doldur
+            document.getElementById('edit-urun-id').value = urun.id;
+            document.getElementById('edit-urunAdi').value = urun.urunAdi;
+            document.getElementById('edit-miktar').value = urun.miktar;
+            document.getElementById('edit-birim').value = urun.birim;
+            
+            // Modalı görünür yap
+            duzenleModal.style.display = "block";
+        }
+    }
+});
+
+// Düzenleme formunun gönderilme (submit) olayını dinle
+duzenleFormu.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById('edit-urun-id').value;
+    const guncelUrun = {
+        urunAdi: document.getElementById('edit-urunAdi').value,
+        miktar: parseInt(document.getElementById('edit-miktar').value),
+        birim: document.getElementById('edit-birim').value,
+    };
+
+    await fetch(`${apiUrl}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(guncelUrun)
+    });
+
+    duzenleModal.style.display = "none"; // Modalı kapat
+    urunleriGetir(); // Tabloyu yenile
+});
+
+// ... (urunSil ve diğer kodlarınız)
 async function urunSil(id) {
     await fetch(`${apiUrl}/${id}`, {
         method: 'DELETE'

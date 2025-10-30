@@ -28,7 +28,19 @@
         </thead>
         <tbody id="urun-listesi">
             </tbody>
-    </table>
+    </table><div id="duzenle-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Ürünü Düzenle</h2>
+            <form id="duzenle-formu">
+                <input type="hidden" id="edit-urun-id">
+                <input type="text" id="edit-urunAdi" placeholder="Ürün Adı" required>
+                <input type="number" id="edit-miktar" placeholder="Miktar" required>
+                <input type="text" id="edit-birim" placeholder="Birim" required>
+                <button type="submit">Güncelle</button>
+            </form>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>

@@ -1,0 +1,117 @@
+/* ============================================= */
+/* TEMEL VE GENEL STİLLER                      */
+/* ============================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Element boyutlandırmasını daha sezgisel yapar */
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Modern ve okunaklı fontlar */
+  background-color: #f4f7f9; /* Göz yormayan, çok açık bir gri arkaplan */
+  color: #333; /* Saf siyah yerine koyu gri metin */
+  padding: 2rem; /* Sayfanın kenarlarında boşluk bırakır */
+}
+
+/* Tüm içeriği ortalayan ve bir kart görünümü veren ana konteyner */
+.container {
+  max-width: 900px; /* İçeriğin çok genişlemesini önler */
+  margin: 0 auto; /* Konteyneri sayfada yatay olarak ortalar */
+  background-color: #ffffff; /* İçerik alanı beyaz */
+  padding: 2rem;
+  border-radius: 8px; /* Yumuşak, yuvarlak köşeler */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Hafif, modern bir gölge */
+}
+
+/* ============================================= */
+/* BAŞLIKLAR                                     */
+/* ============================================= */
+h1, h2 {
+  color: #2c3e50; /* Daha yumuşak bir başlık rengi */
+  margin-bottom: 1.5rem; /* Başlıkların altında boşluk */
+  text-align: center;
+}
+
+h2 {
+  text-align: left;
+  font-size: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0; /* Başlıkları içerikten ayıran ince bir çizgi */
+}
+
+/* ============================================= */
+/* YENİ ÜRÜN EKLEME FORMU                        */
+/* ============================================= */
+#ekle-formu {
+  display: flex; /* Form elemanlarını yan yana dizer */
+  gap: 1rem; /* Elemanlar arasına boşluk koyar */
+  margin-bottom: 2.5rem; /* Form ile tablo arasına boşluk koyar */
+  align-items: center;
+}
+
+#ekle-formu input {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s, box-shadow 0.3s; /* Odaklanma efektini yumuşatır */
+}
+
+#ekle-formu input:focus {
+  outline: none; /* Varsayılan odaklanma çerçevesini kaldırır */
+  border-color: #3498db; /* Odaklanıldığında kenarlık rengini değiştirir */
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Hafif bir parlama efekti */
+}
+
+/* "Ürün Adı" alanının daha fazla yer kaplamasını sağlar */
+#ekle-formu input#urunAdi {
+  flex-grow: 1; 
+}
+
+#ekle-formu button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #3498db; /* Ana Eylem Rengi (Mavi) */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Buton hover efektini yumuşatır */
+}
+
+#ekle-formu button:hover {
+  background-color: #2980b9; /* Butonun üzerine gelince rengi koyulaşır */
+}
+
+
+/* ============================================= */
+/* ÜRÜN LİSTESİ TABLOSU                          */
+/* ============================================= */
+#urun-tablosu {
+  width: 100%;
+  border-collapse: collapse; /* Hücreler arası boşlukları kaldırır */
+}
+
+#urun-tablosu th, #urun-tablosu td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0; /* Satırları birbirinden ayıran ince çizgiler */
+}
+
+#urun-tablosu thead th {
+  background-color: #ecf0f1; /* Başlık satırı için hafif gri arkaplan */
+  color: #34495e;
+  font-weight: 600;
+}
+
+/* Zebra deseni - okunabilirliği artırmak için çift numaralı satırları renklendirir */
+#urun-tablosu tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Fareyle üzerine gelinen satırı vurgular */
+#urun-tablosu tbody tr:hover {
+  background-color: #f1f8ff;
+}
